@@ -1,7 +1,7 @@
+from Task import Task
 from flet import FloatingActionButton, icons, Row, Column, Tab, Tabs, TextField, UserControl, Text, MainAxisAlignment, \
     CrossAxisAlignment, OutlinedButton, TextThemeStyle
 
-from Task import Task
 
 
 class TodoApp(UserControl):
@@ -23,11 +23,13 @@ class TodoApp(UserControl):
         return Column(
             width=600,
             controls=[
-                Row([Text(value="Todos", style=TextThemeStyle.HEADLINE_MEDIUM)], alignment=MainAxisAlignment.CENTER),
+                Row([Text(value="Todos", style=TextThemeStyle.HEADLINE_MEDIUM)],
+                    alignment=MainAxisAlignment.CENTER),
                 Row(
                     controls=[
                         self.new_task,
-                        FloatingActionButton(icon=icons.ADD, on_click=self.add_clicked),
+                        FloatingActionButton(
+                            icon=icons.ADD, on_click=self.add_clicked),
                     ],
                 ),
                 Column(
@@ -56,7 +58,8 @@ class TodoApp(UserControl):
                 self.task_delete(task)
 
     def add_clicked(self, e):
-        task = Task(self.new_task.value, self.task_status_change, self.task_delete)
+        task = Task(self.new_task.value,
+                    self.task_status_change, self.task_delete)
         self.tasks.controls.append(task)
         self.new_task.value = ""
         self.update()
@@ -73,9 +76,9 @@ class TodoApp(UserControl):
         count = 0
         for task in self.tasks.controls:
             task.visible = (
-                    status == "전체"
-                    or (status == "진행중" and task.completed is False)
-                    or (status == "완료" and task.completed)
+                status == "전체"
+                or (status == "진행중" and task.completed is False)
+                or (status == "완료" and task.completed)
             )
             if not task.completed:
                 count += 1
